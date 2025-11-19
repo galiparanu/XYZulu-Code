@@ -159,3 +159,6 @@ export const providerRegistry = new ProviderRegistry();
 // Re-export types for convenience
 export * from './types';
 
+// Export providers
+export { QwenProvider } from './qwen/QwenProvider';
+
