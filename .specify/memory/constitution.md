@@ -1,24 +1,23 @@
 <!--
 Sync Impact Report:
-- Version: 0.1.0 (initial)
-- Principles: 5 core principles defined
-  - Principle 1: Multi-Provider Architecture
+- Version: 0.2.0 (alignment with spec scope)
+- Principles: 5 core principles defined (unchanged)
+  - Principle 1: Multi-Provider Architecture (updated scope)
   - Principle 2: TypeScript Strict Mode
   - Principle 3: Agentic Workflow Preservation
   - Principle 4: Safety Through Diff View
   - Principle 5: Spec-Driven Development
-- Added sections: Project Overview, Core Principles, Technical Architecture, Governance, Compliance Checklist
-- Templates requiring updates: ✅ updated
-  - ✅ .specify/templates/plan-template.md (includes constitution check)
-  - ✅ .specify/templates/spec-template.md (includes constitution compliance section)
-  - ✅ .specify/templates/tasks-template.md (includes constitution alignment)
-  - ✅ .specify/templates/commands/speckit.constitution.md (command template)
+- Changes:
+  - Principle 1: Updated to reflect MVP scope (Qwen, OpenAI, Anthropic) with Gemini/Ollama as future enhancements
+  - Technical Architecture: Updated interface method names to match spec (sendMessage, streamResponse, generateCode)
+  - Project Overview: Updated to reflect current scope
+- Templates requiring updates: None (templates already reference spec-driven approach)
 - Follow-up TODOs: None
 -->
 
 # Xyzulu Project Constitution
 
-**Version:** 0.1.0  
+**Version:** 0.2.0  
 **Ratification Date:** 2024-12-19  
 **Last Amended:** 2024-12-19
 
@@ -30,7 +29,7 @@ Sync Impact Report:
 **Foundation:** Based on `QwenLM/qwen-code` (TypeScript/Node.js CLI)  
 **Purpose:** Multi-Provider Agentic CLI for autonomous coding assistance
 
-Xyzulu is a rebranded and refactored version of the Qwen Code CLI, transformed into a multi-provider agentic coding assistant. The system must support multiple LLM providers (OpenAI, Anthropic, Gemini, Ollama) while maintaining an agentic, autonomous workflow similar to Cursor or Claude Code.
+Xyzulu is a rebranded and refactored version of the Qwen Code CLI, transformed into a multi-provider agentic coding assistant. The system must support multiple LLM providers, with initial support for Qwen, OpenAI, and Anthropic. Additional providers (Gemini, Ollama) are planned as future enhancements. The system maintains an agentic, autonomous workflow similar to Cursor or Claude Code.
 
 ---
 
@@ -38,9 +37,9 @@ Xyzulu is a rebranded and refactored version of the Qwen Code CLI, transformed i
 
 ### Principle 1: Multi-Provider Architecture
 
-**MUST** implement an Adapter Pattern for the LLM layer to abstract provider-specific logic. The system MUST support at least four providers: OpenAI, Anthropic (Claude), Google Gemini, and Ollama. Users MUST be able to configure and switch between providers via API keys or configuration files without code changes.
+**MUST** implement an Adapter Pattern for the LLM layer to abstract provider-specific logic. The system MUST support multiple providers, with initial MVP support for Qwen, OpenAI, and Anthropic (Claude). Additional providers (Google Gemini, Ollama) are planned as future enhancements. Users MUST be able to configure and switch between providers via API keys or configuration files without code changes.
 
-**Rationale:** The original Qwen Code was hardcoded to a single provider. To achieve true flexibility and avoid vendor lock-in, the architecture must be provider-agnostic at the core, with provider-specific implementations isolated behind adapters.
+**Rationale:** The original Qwen Code was hardcoded to a single provider. To achieve true flexibility and avoid vendor lock-in, the architecture must be provider-agnostic at the core, with provider-specific implementations isolated behind adapters. The MVP focuses on three core providers to establish the pattern, with extensibility for additional providers.
 
 ---
 
@@ -90,17 +89,22 @@ The LLM provider layer MUST be structured as follows:
 
 ```
 LLMProvider (interface)
-├── OpenAIAdapter
-├── AnthropicAdapter
-├── GeminiAdapter
-└── OllamaAdapter
+├── QwenProvider (MVP)
+├── OpenAIProvider (MVP)
+├── AnthropicProvider (MVP)
+├── GeminiProvider (future)
+└── OllamaProvider (future)
 ```
 
 Each adapter MUST implement a common interface that includes:
 
-- `generate(prompt: string, options: GenerationOptions): Promise<Response>`
-- `stream(prompt: string, options: GenerationOptions): AsyncIterable<Response>`
+- `sendMessage(prompt: string, options: GenerationOptions): Promise<LLMResponse>`
+- `streamResponse(prompt: string, options: GenerationOptions): AsyncIterable<LLMResponse>`
+- `generateCode(prompt: string, context: CodeContext): Promise<CodeGenerationResult>`
 - `validateConfig(config: ProviderConfig): boolean`
+- `getSupportedModels(): readonly string[]`
+- `getName(): string`
+- `isAvailable(): boolean`
 
 Provider-specific authentication, API endpoints, and response parsing MUST be encapsulated within each adapter.
 
@@ -128,6 +132,7 @@ Provider-specific authentication, API endpoints, and response parsing MUST be en
 
 ### Version History
 
+- **0.2.0** (2024-12-19): Aligned Principle 1 with spec scope, updated interface method names to match spec
 - **0.1.0** (2024-12-19): Initial constitution ratification
 
 ---

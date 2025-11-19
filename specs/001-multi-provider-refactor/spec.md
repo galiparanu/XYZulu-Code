@@ -127,6 +127,16 @@
    - Users MUST receive clear, actionable error messages regardless of provider
    - Network failures, authentication errors, and rate limits MUST be handled gracefully
    - Error messages MUST not expose provider-specific implementation details unnecessarily
+   
+   **Error Message Quality Examples:**
+   
+   ✅ **Good:** "API key not configured for provider 'openai'. Please set it with: xyzulu config set openai.apiKey <key>"
+   
+   ❌ **Bad:** "Error: 401 Unauthorized" or "DashScope API returned error code: INVALID_API_KEY"
+   
+   ✅ **Good:** "Provider 'anthropic' is not available. Please check your API key configuration."
+   
+   ❌ **Bad:** "AnthropicError: sk-ant-api03-..." (exposes key details)
 
 4. **NFR-4: Testing**
    - Each provider adapter MUST have unit tests
@@ -295,15 +305,26 @@ Each provider adapter MUST:
 
 ## Success Criteria
 
-- [ ] Users can configure and use at least 3 providers (Qwen, OpenAI, Anthropic) without code changes
-- [ ] All existing Qwen functionality works identically after refactor (zero regression)
-- [ ] Users can switch providers via CLI flag (`--model`) in under 2 seconds
-- [ ] Configuration system supports storing keys for all providers simultaneously
-- [ ] TypeScript compilation produces zero errors and zero warnings
-- [ ] All existing tests pass without modification
-- [ ] New provider adapters can be added by implementing the interface (demonstrated with OpenAI/Anthropic skeletons)
-- [ ] Error messages are clear and actionable for 95% of common failure scenarios
-- [ ] Diff view and UI components function identically regardless of selected provider
+**Acceptance Criteria:**
+
+1. **Multi-Provider Support**
+   - Users can configure and use at least 3 providers (Qwen, OpenAI, Anthropic) without code changes
+   - Configuration system supports storing keys for all providers simultaneously
+   - New provider adapters can be added by implementing the interface (demonstrated with OpenAI/Anthropic skeletons)
+
+2. **Backward Compatibility**
+   - All existing Qwen functionality works identically after refactor (zero regression)
+   - All existing tests pass without modification
+
+3. **Performance**
+   - CLI flag parsing and provider resolution completes in under 2 seconds (measured from flag parsing to provider instance ready)
+
+4. **Code Quality**
+   - TypeScript compilation produces zero errors and zero warnings
+
+5. **User Experience**
+   - Error messages are clear and actionable for 95% of common failure scenarios (see NFR-3 for examples)
+   - Diff view and UI components function identically regardless of selected provider
 
 ## Dependencies
 

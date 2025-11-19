@@ -397,6 +397,8 @@ Final Phase (Regression & Polish)
 - [ ] T208 Verify code follows project style guidelines
 - [ ] T209 Review error messages for clarity and actionability
 - [ ] T210 Verify all TODO comments are documented with context
+- [ ] T220 Review and validate error message clarity and actionability (per NFR-3 examples in spec.md)
+- [ ] T221 Audit codebase for `any` types and document justifications (per NFR-1 requirement)
 
 ### Documentation Review
 

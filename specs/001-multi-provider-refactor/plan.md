@@ -51,12 +51,16 @@ The refactor follows a phased approach to minimize risk and ensure backward comp
 - CLI argument parsing location
 - Configuration file structure
 
-**NEEDS CLARIFICATION:**
+**Known Limitations (To Be Resolved During Integration):**
 
-- Exact file structure of Qwen codebase (to be resolved when code is integrated)
-- Current configuration format and storage location
-- Current error handling patterns
-- Current response format and how it's used by UI
+The following items are documented as known limitations that will be resolved when the Qwen codebase is integrated:
+
+- **File Structure:** Exact file structure of Qwen codebase (to be resolved when code is integrated)
+- **Configuration Format:** Current configuration format and storage location (to be analyzed during Phase 2)
+- **Error Handling Patterns:** Current error handling patterns (to be documented during codebase analysis)
+- **Response Format:** Current response format and how it's used by UI (to be mapped during extraction)
+
+**Note:** The implementation structure is ready to accommodate these details once the Qwen codebase is available. The abstraction layer has been designed to be flexible enough to handle various integration patterns.
 
 ### Technology Stack
 

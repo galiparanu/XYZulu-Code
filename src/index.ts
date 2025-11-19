@@ -13,7 +13,7 @@ import { configManager } from './config/ConfigManager';
 /**
  * Main application function
  */
-export async function main(): Promise<void> {
+async function main(): Promise<void> {
   try {
     // Parse CLI arguments
     // Get process.argv in Node.js environment
@@ -246,7 +246,9 @@ export { main };
 if (typeof require !== 'undefined' && require.main === module) {
   main().catch((error) => {
     console.error('Fatal error:', error);
-    process.exit(1);
+    if (typeof process !== 'undefined' && process.exit) {
+      process.exit(1);
+    }
   });
 }
 

@@ -134,7 +134,7 @@ export class QwenProvider implements LLMProvider {
         throw await this.handleHttpError(response);
       }
 
-      const data: DashScopeResponse = await response.json();
+      const data = (await response.json()) as DashScopeResponse;
       return this.parseResponse(data, options.model || 'qwen-turbo');
     } catch (error) {
       throw this.handleError(error);
