@@ -456,6 +456,8 @@ interface LLMProvider {
 
 ## Success Criteria
 
+See `spec.md` Success Criteria section for detailed acceptance criteria. Key phase-level criteria (summary):
+
 - [ ] Phase 1: All interfaces defined, TypeScript compiles with zero errors
 - [ ] Phase 2: QwenProvider works identically to original implementation
 - [ ] Phase 3: Users can switch providers via CLI flag, all existing workflows work
