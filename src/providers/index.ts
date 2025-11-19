@@ -161,4 +161,6 @@ export * from './types';
 
 // Export providers
 export { QwenProvider } from './qwen/QwenProvider';
+export { OpenAIProvider } from './openai/OpenAIProvider';
+export { AnthropicProvider } from './anthropic/AnthropicProvider';
 

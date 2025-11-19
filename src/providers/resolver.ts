@@ -7,6 +7,8 @@
 
 import type { LLMProvider, MultiProviderConfig, ProviderConfig } from './types';
 import { QwenProvider } from './qwen/QwenProvider';
+import { OpenAIProvider } from './openai/OpenAIProvider';
+import { AnthropicProvider } from './anthropic/AnthropicProvider';
 import { providerRegistry } from './index';
 import { AuthenticationError } from './types';
 import { configManager } from '../config/ConfigManager';
@@ -68,12 +70,10 @@ function createProviderInstance(
       return new QwenProvider(config);
 
     case 'openai':
-      // TODO: Import and instantiate OpenAIProvider when implemented
-      throw new Error('OpenAI provider not yet implemented');
+      return new OpenAIProvider(config);
 
     case 'anthropic':
-      // TODO: Import and instantiate AnthropicProvider when implemented
-      throw new Error('Anthropic provider not yet implemented');
+      return new AnthropicProvider(config);
 
     default:
       throw new Error(`Unknown provider: ${providerName}`);

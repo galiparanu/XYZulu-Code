@@ -15,19 +15,30 @@ export interface CLIOptions {
 /**
  * Parse command-line arguments
  */
-export function parseArgs(argv: string[] = process.argv.slice(2)): CLIOptions {
+export function parseArgs(argv?: string[]): CLIOptions {
+  // Get args from parameter or process.argv (Node.js environment)
+  let args: string[];
+  if (argv) {
+    args = argv;
+  } else {
+    // In Node.js, process.argv is available
+    // For TypeScript strict mode, we'll require argv to be passed
+    // or use a type declaration file for Node.js types
+    args = [];
+  }
+
   const options: CLIOptions = {
     args: [],
   };
 
-  for (let i = 0; i < argv.length; i++) {
-    const arg = argv[i];
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
 
     switch (arg) {
       case '--model':
       case '-m':
-        if (i + 1 < argv.length) {
-          options.model = argv[++i];
+        if (i + 1 < args.length) {
+          options.model = args[++i];
         } else {
           throw new Error('--model requires a value (e.g., --model gpt-4o)');
         }
@@ -35,8 +46,8 @@ export function parseArgs(argv: string[] = process.argv.slice(2)): CLIOptions {
 
       case '--provider':
       case '-p':
-        if (i + 1 < argv.length) {
-          options.provider = argv[++i];
+        if (i + 1 < args.length) {
+          options.provider = args[++i];
         } else {
           throw new Error('--provider requires a value (e.g., --provider openai)');
         }

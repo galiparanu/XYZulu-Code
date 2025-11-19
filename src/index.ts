@@ -16,7 +16,9 @@ import { configManager } from './config/ConfigManager';
 export async function main(): Promise<void> {
   try {
     // Parse CLI arguments
-    const options = parseArgs();
+    // Get process.argv in Node.js environment
+    const nodeArgs = typeof process !== 'undefined' ? process.argv.slice(2) : [];
+    const options = parseArgs(nodeArgs);
 
     // Show help if requested
     if (options.help) {
